@@ -39,13 +39,67 @@ public class Empleat implements Serializable {
     @JoinTable(name="Equips",
     joinColumns = {@JoinColumn(name="idEmpleat", foreignKey=@ForeignKey(name="FK_EQUIP_EMPLEAT"))},
     inverseJoinColumns = {@JoinColumn(name="idTasca", foreignKey=@ForeignKey(name="FK_EQUIP_TASCA"))})
-        private Set<Tasca> tasques = new HashSet<>();
+    private Set<Tasca> tasques = new HashSet<>();
         public void addTasca(Tasca t) {
             if(!this.tasques.contains(t)) {
                 tasques.add(t);
             }
-            
+            t.addEmpleat(this);
         }
+
+    
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getNom() {
+        return nom;
+    }
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+    public String getCognom1() {
+        return cognom1;
+    }
+    public void setCognom1(String cognom1) {
+        this.cognom1 = cognom1;
+    }
+    public String getCognom2() {
+        return cognom2;
+    }
+    public void setCognom2(String cognom2) {
+        this.cognom2 = cognom2;
+    }
+    public String getDni() {
+        return dni;
+    }
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+    public String getTelefon() {
+        return telefon;
+    }
+    public void setTelefon(String telefon) {
+        this.telefon = telefon;
+    }
+    public double getSou() {
+        return sou;
+    }
+    public void setSou(double sou) {
+        this.sou = sou;
+    }
+
+    public Empleat(int id, String nom, String cognom1, String cognom2, String dni, String telefon, double sou) {
+        this.id = id;
+        this.nom = nom;
+        this.cognom1 = cognom1;
+        this.cognom2 = cognom2;
+        this.dni = dni;
+        this.telefon = telefon;
+        this.sou = sou;
+    }
          
 
 }
