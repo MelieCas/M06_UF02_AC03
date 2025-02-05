@@ -21,19 +21,19 @@ import jakarta.persistence.Table;
 public class Empleat implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id", nullable = false)
     private int id;
-    @Column(name="nom")
+    @Column(name="nom", nullable = false)
     private String nom;
-    @Column(name="primer_cognom")
+    @Column(name="primer_cognom", nullable = false)
     private String cognom1;
     @Column(name="segon_cognom")
     private String cognom2;
-    @Column(name="dni")
+    @Column(name="dni", nullable = false)
     private String dni;
-    @Column(name="telefon")
+    @Column(name="telefon", nullable = false)
     private String telefon;
-    @Column(name="sou")
+    @Column(name="sou", nullable = false)
     private double sou;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name="Equips",

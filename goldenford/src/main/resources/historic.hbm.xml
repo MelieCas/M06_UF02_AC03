@@ -2,11 +2,11 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.iticbcn.hibernate.models.Historic" table="historics">
-        <id name="id" column="id">
+        <id name="id" column="id", nullable = "false">
             <generator class="identity"/>
         </id>
-        <property column="data_inici" name="data_inici" />
-        <property column="data_fi" name="data_fi" />
-        <property column="comentaris" name="comentaris" />
+        <property column="data_inici" name="data_inici", nullable = "false" />
+        <property column="data_fi" name="data_fi", nullable = "false" />
+        <property column="comentaris" name="comentaris", nullable = "false" />
     </class>
 </hibernate-mapping>

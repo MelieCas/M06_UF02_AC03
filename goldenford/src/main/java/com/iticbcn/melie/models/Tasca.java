@@ -16,15 +16,15 @@ import jakarta.persistence.ManyToMany;
 public class Tasca implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id", nullable = false)
     private int id;
-    @Column(name="nom")
+    @Column(name="nom", nullable = false)
     private String nom;
-    @Column(name="descripcio")
+    @Column(name="descripcio", nullable = false)
     private String descripcio;
-    @Column(name="fecha_limit")
+    @Column(name="fecha_limit", nullable = false)
     private Date fecha_limit;
-    @Column(name="prioritat")
+    @Column(name="prioritat", nullable = false)
     private int prioritat;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "tasques")
     private Set<Empleat> empleats = new HashSet<>();
