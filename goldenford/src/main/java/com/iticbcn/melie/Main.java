@@ -5,11 +5,14 @@ import java.sql.Connection;
 import java.util.Properties;
 
 import org.apache.logging.log4j.util.PropertySource.Util;
+import org.hibernate.SessionFactory;
 
 public class Main {
     private static Connection conn;
     private static CRUDManager manager;
     public static void main(String[] args) {
+
+        SessionFactory session = HibernateUtil.getSessionFactory();
 
         try (InputStream input = Main.class.getClassLoader().getResourceAsStream("config.properties")) {
 
