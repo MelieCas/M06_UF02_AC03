@@ -14,36 +14,15 @@ public class Main {
 
         SessionFactory session = HibernateUtil.getSessionFactory();
 
-        try (InputStream input = Main.class.getClassLoader().getResourceAsStream("config.properties")) {
-
-            Properties properties = new Properties();
-
-            properties.load(input);
-
-            conn = Utility.databaseConnection(properties);
-
-            if (conn == null) return;
-
-            loadData();
-
-            manager = new CRUDManager("empleats");
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
         
         System.out.println("Welcome to GoldenFord.");
         while (true) {
             System.out.println("""
                 What would you like to do? 
-                1. Load DB script
-                2. Insert on table
-                3. Show table rows
-                4. Create XML file
-                5. Show row by Id
-                6. Show Workers by Name
-                7. Modify
-                8. Delete row by Id
+                1. Create
+                2. Update
+                3. Delete
+                4. Show information
                 """);
             String option = Utility.input().toLowerCase();
             switch (option) {

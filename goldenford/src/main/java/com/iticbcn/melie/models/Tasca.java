@@ -13,6 +13,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
+
+@Entity
+@Table(name = "Tasques")
+
 public class Tasca implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

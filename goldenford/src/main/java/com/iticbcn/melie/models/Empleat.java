@@ -18,6 +18,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "Empleats")
+
 public class Empleat implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

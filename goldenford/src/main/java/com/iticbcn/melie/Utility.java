@@ -34,20 +34,4 @@ public class Utility {
         }
     }
 
-    public static Connection databaseConnection(Properties properties) {
-        String dbUrl = properties.getProperty("db.url");
-        String dbName = properties.getProperty("db.username");
-        String dbPasswd = properties.getProperty("db.password");
-
-        try {
-            Connection conn = DriverManager.getConnection(dbUrl, dbName, dbPasswd);
-
-            System.out.println("Connexion to database succesful.");
-
-            return conn;
-        } catch (SQLException e) {
-            System.out.println("Connexion to database failed.");
-            return null;
-        }
-    }
 }
