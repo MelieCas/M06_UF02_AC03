@@ -94,14 +94,26 @@ public class Empleat implements Serializable {
         this.sou = sou;
     }
 
-    public Empleat(int id, String nom, String cognom1, String cognom2, String dni, String telefon, double sou) {
-        this.id = id;
+    public Empleat(String nom, String cognom1, String cognom2, String dni, String telefon, double sou) {
         this.nom = nom;
         this.cognom1 = cognom1;
         this.cognom2 = cognom2;
         this.dni = dni;
         this.telefon = telefon;
         this.sou = sou;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+        Id: %d%n
+        Nom: %s%n
+        Primer Cognom: %s%n
+        Segon Cognom: %s%n
+        DNI: %s%n
+        Telefon: %s%n
+        Sou: %.2f%n
+        """, id, nom, cognom1, cognom2, dni, telefon, sou)
     }
          
 
