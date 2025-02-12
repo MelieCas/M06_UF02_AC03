@@ -32,7 +32,7 @@
 
         <!-- Mantenimiento de la BBDD -->
 
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
 
         <!-- opciones de hbm2dll:
         create : Borra y crea SIEMPRE la base de datos
@@ -44,8 +44,8 @@
         <!-- Ficheros de mapeo. Pueden combinarse-->
         <mapping resource="historic.hbm.xml"/>
         <!-- Mapeo DENTRO DE LA CLASE -->
-        <mapping class="model.Empleat" />
-        <mapping class="model.Tasca" />
+        <mapping class="com.iticbcn.melie.model.Empleat" />
+        <mapping class="com.iticbcn.melie.model.Tasca" />
       
     </session-factory>
 </hibernate-configuration>

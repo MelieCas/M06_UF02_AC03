@@ -2,17 +2,21 @@ package com.iticbcn.melie;
 
 import java.io.InputStream;
 import java.sql.Connection;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.logging.log4j.util.PropertySource.Util;
 import org.hibernate.SessionFactory;
 
+import com.iticbcn.melie.dao.EmpleatDAO;
+import com.iticbcn.melie.model.*;
+
 public class Main {
     private static Connection conn;
-    private static CRUDManager manager;
+
+    private static SessionFactory session = HibernateUtil.getSessionFactory();
     public static void main(String[] args) {
 
-        SessionFactory session = HibernateUtil.getSessionFactory();
 
         
         System.out.println("Welcome to GoldenFord.");
@@ -41,19 +45,20 @@ public class Main {
                     break;
                 case "5":
                     listAll();
-                    break
+                    break;
                 default:;
                     System.out.println("Error: Option " + option + " not recognized");
             }
         }
     }
 
-    public static listAll() {
+    public static void listAll() {
         EmpleatDAO empleatDAO = new EmpleatDAO(session);
 
         List<Empleat> empleats = null;    
 
         empleats = empleatDAO.getAllEmpleats();
+        
 
         for (Empleat empleat : empleats) {
             System.out.println(empleat);
@@ -66,7 +71,6 @@ public class Main {
 
             InputStream streamScript = Main.class.getClassLoader().getResourceAsStream(scriptDatabase);
             
-            CRUDManager.loadDatabaseScript(conn, streamScript);
 
             System.out.println("Database loaded");
             
@@ -77,7 +81,7 @@ public class Main {
 
     public static void insertWorker() {
 
-        EmpleatDAO empleatDAO = new empleatDAO(session)
+        EmpleatDAO empleatDAO = new EmpleatDAO(session);
 
         while (true) {
 
@@ -148,26 +152,12 @@ public class Main {
     public static void listTableRows() {
         int offset = 0;
 
-        while (true) {
-            boolean setAvailable = manager.readTableRows(conn, offset);
-  
-            if (setAvailable) {
-                System.out.println("Read another set? (y/N): ");
-                String readSet = Utility.input();
-
-                if (!Utility.confirmAnswer(readSet)) break;
-                offset += 10;
-
-            } else {
-                System.out.println("All rows read.");
-                break;
-            }
-        }
+        
 
     }
 
     public static void searchRowById() {
-        EmpleatDAO empleatDAO = new empleatDAO(session);
+        EmpleatDAO empleatDAO = new EmpleatDAO(session);
         
         while (true) {
             System.out.println("Write the ID of the worker you want to find: ");
@@ -189,7 +179,7 @@ public class Main {
 
             Empleat empleat = empleatDAO.getEmpleat(workerId);
 
-            System.out.println(empleat)
+            System.out.println(empleat);
 
             System.out.println("Read another row? (y/N): ");
             String readRow = Utility.input();
@@ -204,7 +194,6 @@ public class Main {
             System.out.println("Write the Name of the worker you want to find: ");
             String workerName = Utility.input();
 
-            manager.searchWorkersByName(conn, workerName);
 
             System.out.println("Search another name? (y/N): ");
             String searchName = Utility.input();
@@ -215,7 +204,7 @@ public class Main {
     }
 
     public static void deleteRowById() {
-        EmpleatDAO empleatDAO = new empleatDAO(session);
+        EmpleatDAO empleatDAO = new EmpleatDAO(session);
     
         while (true) {
             System.out.println("Write the ID of the worker you want to delete: ");
@@ -247,7 +236,7 @@ public class Main {
     }
 
     public static void updateWorker() {
-        EmpleatDAO empleatDAO = new empleatDAO(session);
+        EmpleatDAO empleatDAO = new EmpleatDAO(session);
 
         System.out.println("Write the ID of the worker you want to update: ");
         String workerIdString = Utility.input();
@@ -270,7 +259,7 @@ public class Main {
                 continue;
             }
 
-            Empleat empleat = empleatDAO.find(workerId);
+            Empleat empleat = empleatDAO.getEmpleat(workerId);
 
             System.out.println("Insert worker name (empty to not update it): ");
             String workerName = Utility.input();
@@ -280,12 +269,12 @@ public class Main {
             System.out.println("Insert worker first surname (empty to not update it): ");
             String workerSurname = Utility.input();
 
-            if (!workerName.isBlank()) empleat.setCognom1(workerSurname);
+            if (!workerSurname.isBlank()) empleat.setCognom1(workerSurname);
 
             System.out.println("Insert worker second surname (empty to not update it): ");
             String workerSurname2 = Utility.input();
 
-            if (!workerName.isBlank()) empleat.setCognom2(workerSurname2);
+            if (!workerSurname2.isBlank()) empleat.setCognom2(workerSurname2);
 
             System.out.println("Insert worker Identity number (DNI, empty to not update it): ");
             String workerDNI = Utility.input();

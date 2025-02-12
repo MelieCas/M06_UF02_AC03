@@ -1,10 +1,13 @@
 package com.iticbcn.melie.dao;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
-import com.iticbcn.melie.models.Empleat;
+import com.iticbcn.melie.model.Empleat;
 
 public class EmpleatDAO {
     
@@ -21,6 +24,8 @@ public class EmpleatDAO {
             Query<Empleat> q = session.createQuery("from Empleats",Empleat.class);
 
             empleats = q.list();
+            
+
         } catch (HibernateException e) {
             System.err.println("Error en Hibernate: " + e.getMessage());
         } catch (Exception e) {
@@ -89,11 +94,23 @@ public class EmpleatDAO {
     public void deleteEmpleat(int empleatId) {
 
         try (Session session = sessionFactory.openSession()) {
-            empleat = session.delete(empleatId);
-        } catch (HibernateException e) {
-            System.err.println("Error en Hibernate: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Error inesperado: " + e.getMessage());
+            Empleat empleat = session.find(Empleat.class, empleatId);
+            session.beginTransaction();
+            try {
+                session.remove(empleat);
+                session.getTransaction().commit();            
+           } catch (HibernateException e) {
+               if (session.getTransaction() != null) {
+                   session.getTransaction().rollback();
+                   System.err.println("Error en Hibernate: " + e.getMessage()); 
+               }
+           } catch (Exception e) {
+               if (session.getTransaction()  != null) {
+                   session.getTransaction().rollback();
+                   System.err.println("Error inesperado: " + e.getMessage());
+               }
+
+          }
         } 
 
     }

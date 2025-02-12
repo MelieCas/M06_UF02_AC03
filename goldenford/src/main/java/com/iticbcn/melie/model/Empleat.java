@@ -1,4 +1,4 @@
-package com.iticbcn.melie.models;
+package com.iticbcn.melie.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -18,7 +18,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-@Entity
+@Entity(name = "Empleats")
 @Table(name = "Empleats")
 
 public class Empleat implements Serializable {
@@ -94,6 +94,8 @@ public class Empleat implements Serializable {
         this.sou = sou;
     }
 
+    public Empleat() {}
+
     public Empleat(String nom, String cognom1, String cognom2, String dni, String telefon, double sou) {
         this.nom = nom;
         this.cognom1 = cognom1;
@@ -113,7 +115,7 @@ public class Empleat implements Serializable {
         DNI: %s%n
         Telefon: %s%n
         Sou: %.2f%n
-        """, id, nom, cognom1, cognom2, dni, telefon, sou)
+        """, id, nom, cognom1, cognom2, dni, telefon, sou);
     }
          
 
