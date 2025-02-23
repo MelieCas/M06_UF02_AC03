@@ -57,7 +57,12 @@ public class Main {
 
         List<Empleat> empleats = null;    
 
-        empleats = empleatDAO.getAllEmpleats();
+        try {
+            empleats = empleatDAO.getAll();
+        } catch (Exception e) {
+             
+            e.printStackTrace();
+        }
         
 
         for (Empleat empleat : empleats) {
@@ -140,7 +145,12 @@ public class Main {
             
             Empleat empleat = new Empleat(workerName, workerSurname, workerSurname2, workerDNI, workerPhone, workerSalaryDouble);
 
-            empleatDAO.createEmpleat(empleat);
+            try {
+                empleatDAO.save(empleat);
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+            }
 
             System.out.println("Add another worker? (y/N): ");
             String continueInsert = Utility.input();
@@ -177,7 +187,12 @@ public class Main {
                 continue;
             }
 
-            Empleat empleat = empleatDAO.getEmpleat(workerId);
+            Empleat empleat = null;
+            try {
+                empleat = empleatDAO.get(workerId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             System.out.println(empleat);
 
@@ -224,7 +239,19 @@ public class Main {
                 continue;
             }
 
-            empleatDAO.deleteEmpleat(workerId);
+            Empleat empleat = null;
+
+            try {
+                empleat = empleatDAO.get(workerId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                empleatDAO.delete(empleat);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             System.out.println("delete another row? (y/N): ");
             String readRow = Utility.input();
@@ -259,7 +286,13 @@ public class Main {
                 continue;
             }
 
-            Empleat empleat = empleatDAO.getEmpleat(workerId);
+            Empleat empleat = null;
+            try {
+                empleat = empleatDAO.get(workerId);
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+            }
 
             System.out.println("Insert worker name (empty to not update it): ");
             String workerName = Utility.input();
@@ -326,7 +359,11 @@ public class Main {
             if (workerSalaryDouble != 0) empleat.setSou(workerSalaryDouble);
 
         
-            empleatDAO.updateEmpleat(empleat);
+            try {
+                empleatDAO.update(empleat);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             System.out.println("Update another worker? (y/N): ");
             String continueInsert = Utility.input();
